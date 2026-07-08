@@ -13,18 +13,21 @@ public class AuthController : ControllerBase
     private readonly string _key = "YourSuperSecretKey123456789012345678901234567890";
 
     [HttpPost("login")]
+    [ProducesResponseType<object>(StatusCodes.Status200OK)]
+    [ProducesResponseType<string>(StatusCodes.Status401Unauthorized)]
     public IActionResult Login([FromBody] LoginRequest request)
     {
+        // TODO: Implement your user authentication logic here (e.g., check against a database)
         if (request.Username == "admin" && request.Password == "password")
         {
-            var token = GenerateToken(request.Username);
+            var token = GenerateToken();
             return Ok(new { token });
         }
 
         return Unauthorized("Invalid credentials");
     }
 
-    private string GenerateToken(string username)
+    private string GenerateToken()
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_key));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);

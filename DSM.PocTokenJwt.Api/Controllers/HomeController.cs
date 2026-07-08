@@ -7,12 +7,7 @@ namespace DSM.PocTokenJwt.Api.Controllers;
 [Route("api/v1/[controller]")]
 public class HomeController : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
-    {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
-    private readonly ILogger<HomeController> _logger;
+    private ILogger<HomeController> _logger { get; init; }
 
     public HomeController(ILogger<HomeController> logger)
     {
@@ -21,6 +16,8 @@ public class HomeController : ControllerBase
 
     [HttpGet]
     [Authorize]
+    [ProducesResponseType<object>(StatusCodes.Status200OK)]
+    [ProducesResponseType<string>(StatusCodes.Status401Unauthorized)]
     [Route("Get")]
     public IActionResult Get()
     {
@@ -28,6 +25,7 @@ public class HomeController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType<object>(StatusCodes.Status200OK)]
     [Route("Get2")]
     public IActionResult Get2()
     {

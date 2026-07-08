@@ -4,3 +4,4 @@
 *.exe
 .continue/*
 .vscode/*
+.sonarqube/*

@@ -1,29 +1,29 @@
 # POC Token JWT API
 
-Esta es una API demo que demuestra el flujo de **Authentication JWT** en ASP.NET Core: generación de tokens en el controlador de autenticación y validación automática en las rutas protegidas.
+This is a demo API that demonstrates the **JWT Authentication** flow in ASP.NET Core: token generation in the authentication controller and automatic validation on protected routes.
 
-## Funcionalidades
+## Features
 
-- **Login JWT**: Endpoint que valida credenciales y devuelve un token firmado con HMAC SHA256.
-- **Rutas protegidas y abiertas**: Ejemplos de endpoints públicos (`Get2`) y endpoints que requieren Bearer token (`Get`).
-- **Configuración OpenAPI**: Swagger preparado para probar el token JWT en el header Authorization.
+- **JWT Login**: Endpoint that validates credentials and returns a token signed with HMAC SHA256.
+- **Protected and Open Routes**: Examples of public endpoints (`Get2`) and endpoints requiring a Bearer token (`Get`).
+- **OpenAPI Configuration**: Swagger prepared to test the JWT token in the Authorization header.
 
 ## Endpoints
 
-| Método | Ruta | Descripción | Seguridad |
+| Method | Route | Description | Security |
 | --- | --- | --- | --- |
-| `GET` | `/api/v1/home/Get` | Endpoint de ejemplo protegido | **Required** |
-| `GET` | `/api/v1/home/Get2` | Endpoint de ejemplo público | Open |
-| `POST` | `/api/v1/auth/login` | Obtiene un token JWT | Open |
+| `GET` | `/api/v1/home/Get` | Example protected endpoint | **Required** |
+| `GET` | `/api/v1/home/Get2` | Example public endpoint | Open |
+| `POST` | `/api/v1/auth/login` | Obtains a JWT token | Open |
 
-## Autenticación
+## Authentication
 
-Se utiliza un esquema **JwtBearer** con validación de emisor, audiencia y clave simétrica. El token generado tiene una validez de 3 horas.
+A **JwtBearer** scheme is used with issuer, audience, and symmetric key validation. The generated token is valid for 3 hours.
 
-> **Nota de seguridad**: Esta es una implementación de prueba ("POC"). El secreto se guarda directamente en el código por simplicidad y no debe usarse en producción.
+> **Security Note**: This is a proof-of-concept ("POC") implementation. The secret is stored directly in the code for simplicity and must not be used in production.
 
-## Cómo probarlo
+## How to test
 
-1.  **Loguearse**: Envía un POST a `/api/v1/auth/login` con `{ "username": "admin", "password": "password" }`.
-2.  **Usar el Token**: Copia el `token` recibido y añádelo como Bearer en tu cliente Swagger o herramienta de pruebas.
-3.  **Acceder**: Llama a `/api/v1/home/Get` para confirmar la autorización válida.
+1.  **Login**: Send a POST to `/api/v1/auth/login` with `{ "username": "admin", "password": "password" }`.
+2.  **Use the Token**: Copy the received `token` and add it as a Bearer token in your Swagger client or testing tool.
+3.  **Access**: Call `/api/v1/home/Get` to confirm valid authorization.
